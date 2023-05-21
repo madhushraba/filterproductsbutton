@@ -1,70 +1,126 @@
-import React, { useState } from 'react';
-import './style.css'
+import React, { useEffect, useState } from 'react';
+import './style.css';
+// import itm from './items.js'
 
-const productsData = [
-  { name: 'bag 1', category: 'bags' },
-  { name: 'watch 2', category: 'watchss' },
-  { name: 'bag 3', category: 'bags' },
-  { name: 'Product 4', category: 'category3' },
-  { name: 'waxx 5', category: 'watchss' },
-  { name: 'Product 6', category: 'category3' },
+const itm = [
+  {
+    name: 'Prada',
+    category: 'Bags',
+  },
+  {
+    name: 'Gucci',
+    category: 'Bags',
+  },
+  {
+    name: 'Guess',
+    category: 'Bags',
+  },
+  {
+    name: 'Rolex',
+    category: 'Watches',
+  },
+  {
+    name: 'Timex',
+    category: 'Watches',
+  },
+  {
+    name: 'Nike',
+    category: 'Sports',
+  },
+  {
+    name: 'Adidas',
+    category: 'Sports',
+  },
+  {
+    name: 'Fila',
+    category: 'Sports',
+  },
+  {
+    name: 'Ray Ban',
+    category: 'Sunglasses',
+  },
+  {
+    name: 'Aldo',
+    category: 'Sunglasses',
+  },
+  {
+    name: 'Polaroid',
+    category: 'Sunglasses',
+  },
 ];
 
 const App = () => {
-  const [selectedFilter, setSelectedFilter] = useState('all');
-  const [filteredProducts, setFilteredProducts] = useState(productsData);
+  const [selectfilt, setselectfilt] = useState('all');
+  const [filtprod, setfiltprod] = useState(itm);
 
   // -==============
 
   const handleFilterClick = (filter) => {
-    if (filter === selectedFilter) return; 
-    setSelectedFilter(filter);
- const filtered = filter === 'all'
-      ? productsData
-      : productsData.filter(product => product.category === filter);
+    if (filter === selectfilt) return;
+    setselectfilt(filter);
+    const filtered =
+      filter === 'all'
+        ? itm
+        : itm.filter((product) => product.category === filter);
 
-    setFilteredProducts(filtered);
+    setfiltprod(filtered);
   };
-// =================
+  // =================
   return (
     <div id="filters-bar">
       <button
-        className={selectedFilter === 'all' ? 'filter-button active' : 'filter-button'}
-        onClick={() => handleFilterClick('all')}
+        className={
+          selectfilt === 'Bags' ? 'filter-button active' : 'filter-button'
+        }
+        onClick={() => handleFilterClick('Bags')}
       >
-        All
+        Bags
       </button>
       <button
-        className={selectedFilter === 'bags' ? 'filter-button active' : 'filter-button'}
-        onClick={() => handleFilterClick('bags')}
+        className={
+          selectfilt === 'Watches'
+            ? 'filter-button active'
+            : 'filter-button'
+        }
+        onClick={() => handleFilterClick('Watches')}
       >
-      bags
+        Watches
       </button>
       <button
-        className={selectedFilter === 'watchss' ? 'filter-button active' : 'filter-button'}
-        onClick={() => handleFilterClick('watchss')}
+        className={
+          selectfilt === 'Sports' ? 'filter-button active' : 'filter-button'
+        }
+        onClick={() => handleFilterClick('Sports')}
       >
-        wwxct
+        Sports
       </button>
       <button
-        className={selectedFilter === 'category3' ? 'filter-button active' : 'filter-button'}
-        onClick={() => handleFilterClick('category3')}
+        className={
+          selectfilt === 'Sunglasses'
+            ? 'filter-button active'
+            : 'filter-button'
+        }
+        onClick={() => handleFilterClick('Sunglasses')}
       >
-        Category 3
+        Sunglasses
       </button>
 
       <div id="products-list">
-        {filteredProducts.length && (
-          <ul>
-            {filteredProducts.map(product => (
-              <li key={product.name}>{product.name}</li>
+        {filtprod.length && (
+          <ul className="items-container">
+            {filtprod.map((product) => (
+              <li className="item" key={product.name}>
+                {product.name}
+               <div class='category'> {product.category}
+                 </div>
+                
+              </li>
             ))}
           </ul>
-        ) }
+        )}
       </div>
     </div>
   );
 };
 
 export default App;
-
